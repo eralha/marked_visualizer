@@ -68,9 +68,9 @@ html, body {
   font-size: 11px; fill: #cfcfe8; text-anchor: middle; pointer-events: none;
   paint-order: stroke; stroke: rgba(30, 30, 46, .9); stroke-width: 3px;
 }
-#graph .nodes.dimmed { opacity: .15; }
-#graph .nodes.selected circle, #graph .nodes.selected rect { stroke: var(--accent); stroke-width: 2.5px; }
-#graph .nodes.in-impact circle { fill: #b4d98a; }
+#graph .nodes .dimmed { opacity: .15; }
+#graph .nodes .selected circle, #graph .nodes .selected rect { stroke: var(--accent); stroke-width: 2.5px; }
+#graph .nodes .in-impact circle { fill: #b4d98a; }
 
 /* tooltip */
 #tooltip {

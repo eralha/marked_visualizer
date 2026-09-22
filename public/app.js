@@ -248,50 +248,29 @@ function renderGraph(graph) {
 // Highlighting: hover → closed neighborhood, click → impact set (downstream BFS)
 // ---------------------------------------------------------------------------
 
-function impactSet(id) {
+function closedNeighborhood(id) {
   const set = new Set([id]);
-  let frontier = [id];
-  while (frontier.length) {
-    const cur = frontier.pop();
-    for (const l of linksBySource.get(cur) || []) {
-      const t = idOf(l.target);
-      if (!set.has(t)) { set.add(t); frontier.push(t); }
-    }
-  }
-  // plus the direct in-neighbors (whoever points at the selected note)
-  for (const l of links) {
-    const s = idOf(l.source), t = idOf(l.target);
-    if (t === id && !set.has(s)) set.add(s);
-  }
+  for (const n of neighbors.get(id) || []) set.add(n);
   return set;
 }
 
 function refreshStyles() {
-  let selSet = null, hovSet = null;
-  if (selectedId) selSet = impactSet(selectedId);
-  if (hoveredId) {
-    hovSet = new Set([hoveredId]);
-    for (const n of neighbors.get(hoveredId) || []) hovSet.add(n);
-  }
-  const set = selSet || hovSet;
+  // hover takes the foreground; the selection is the resting state
+  const activeId = hoveredId || selectedId;
+  const set = activeId ? closedNeighborhood(activeId) : null;
 
   nodeSel
     .classed('dimmed', (d) => !!set && !set.has(d.id))
-    .classed('selected', (d) => d.id === selectedId)
-    .classed('in-impact', (d) => !!selSet && selSet.has(d.id) && d.id !== selectedId);
+    .classed('selected', (d) => d.id === selectedId);
 
   edgeSel
     .classed('lit', (l) => {
       const s = idOf(l.source), t = idOf(l.target);
-      if (selSet) return selSet.has(s) && selSet.has(t);
-      if (hovSet) return s === hoveredId || t === hoveredId;
-      return false;
+      return !!activeId && (s === activeId || t === activeId);
     })
     .classed('dimmed', (l) => {
       const s = idOf(l.source), t = idOf(l.target);
-      if (selSet) return !(selSet.has(s) && selSet.has(t));
-      if (hovSet) return !(s === hoveredId || t === hoveredId);
-      return false;
+      return !!activeId && !(s === activeId || t === activeId);
     });
 }
 
