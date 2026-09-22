@@ -5,7 +5,7 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node scripts/start.js",
     "vendor": "node scripts/copy-vendor.js"
   },
   "license": "MIT",
