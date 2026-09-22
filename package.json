@@ -1,0 +1,16 @@
+{
+  "name": "md-graph-viewer",
+  "version": "1.0.0",
+  "description": "Web + Node app that crawls Obsidian-style [[wikilinks]] in a markdown vault and renders the relationship graph (Cytoscape.js).",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "vendor": "node scripts/copy-vendor.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cytoscape": "^3.30.2",
+    "marked": "^15.0.4"
+  }
+}

@@ -1,0 +1,9 @@
+# dependências — reinstalar com `npm install`
+node_modules/
+
+# bundles UMD copiados de node_modules no arranque (scripts/copy-vendor.js)
+public/vendor/
+
+# sistema / editor
+.DS_Store
+Thumbs.db

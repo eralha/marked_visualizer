@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Graph — Obsidian-style link viewer</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand">🕸️ MD&nbsp;Graph</div>
+
+    <label class="field">
+      <span>Ficheiro raiz</span>
+      <select id="root-select" title="Crawlear a partir de um ficheiro (ou todo o vault)">
+        <option value="">Todo o vault</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Profundidade</span>
+      <input id="depth-input" type="number" min="0" max="25" value="100" style="width:4.5rem" />
+    </label>
+
+    <button id="reload-btn" title="Reconstruir o grafo">↻ Atualizar</button>
+    <button id="fit-btn" title="Ajustar o grafo à janela">⤢ Ajustar</button>
+    <button id="layout-btn" title="Trocar layout">Layout: force</button>
+
+    <div class="stats" id="stats">a carregar…</div>
+  </header>
+
+  <main id="layout">
+    <section id="graph-wrap">
+      <div id="cy"></div>
+      <div id="legend">
+        <span class="lg"><i class="dot ok"></i> nota existente</span>
+        <span class="lg"><i class="dot miss"></i> link em falta (dangling)</span>
+      </div>
+    </section>
+
+    <aside id="sidebar">
+      <div id="note-head">
+        <h2 id="note-title">—</h2>
+        <p id="note-meta" class="muted"></p>
+      </div>
+      <div id="note-body" class="markdown">
+        <p class="muted">Clica num nó para veres a nota.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/vendor/cytoscape.min.js"></script>
+  <script src="/vendor/marked.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
