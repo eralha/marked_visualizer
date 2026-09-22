@@ -1,7 +1,7 @@
 'use strict';
 /**
  * md-graph-viewer — Node server that crawls a markdown vault for Obsidian-style
- * [[wikilinks]] and serves the resulting graph to a Cytoscape.js frontend.
+ * [[wikilinks]] and serves the resulting graph to a D3.js frontend.
  *
  * Endpoints:
  *   GET /            -> public/index.html

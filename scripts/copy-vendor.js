@@ -9,7 +9,7 @@ const root = path.join(__dirname, '..');
 const vendorDir = path.join(root, 'public', 'vendor');
 
 const files = [
-  { from: 'node_modules/cytoscape/dist/cytoscape.umd.js', to: 'cytoscape.min.js' },
+  { from: 'node_modules/d3/dist/d3.min.js', to: 'd3.min.js' },
   { from: 'node_modules/marked/marked.min.js', to: 'marked.min.js' }
 ];
 

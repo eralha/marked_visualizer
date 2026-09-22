@@ -1,6 +1,6 @@
 # 🕸️ MD Graph — Obsidian Graph View em web + Node
 
-Aplicação **Node.js + Cytoscape.js** que lê um vault de ficheiros Markdown, extrai os links internos estilo Obsidian (`[[wikilinks]]`), segue-os em profundidade (BFS) e desenha o grafo de relações no browser — sem plugins do Obsidian, sem build step.
+Aplicação **Node.js + D3.js** que lê um vault de ficheiros Markdown, extrai os links internos estilo Obsidian (`[[wikilinks]]`), segue-os em profundidade (BFS) e desenha o grafo de relações no browser — sem plugins do Obsidian, sem build step.
 
 ```
 lê um .md → encontra [[links]] → abre o ficheiro referido → repete → grafo (nodes + edges) → browser
@@ -11,7 +11,7 @@ lê um .md → encontra [[links]] → abre o ficheiro referido → repete → gr
 - **Crawler BFS** de `[[wikilinks]]` por todo o vault (com proteção contra ciclos)
 - Resolução de nomes como no Obsidian: `[[nota]]`, `[[pasta/nota]]`, `[[nota#secção]]`, `[[nota|alias]]` — case-insensitive, extensão `.md` opcional
 - **Links em falta** (dangling links) aparecem como nós losango/rosa no grafo
-- Grafo interativo com **Cytoscape.js**: force-directed, hover destaca a vizinhança, zoom/pan
+- Grafo interativo com **D3.js** (force simulation): hover → tooltip + destaque da vizinhança, clique → **impact set** (descendentes) + abre a nota, drag para fixar nós, zoom/pan
 - Clique num nó → **painel lateral** com a nota renderizada (via `marked`), com os wikilinks clicáveis
 - Dropdown para **re-crawlear a partir de um ficheiro raiz** + limite de profundidade
 - Troca de layout: force / grid / circle
@@ -31,7 +31,7 @@ npm start
 
 Abre **http://127.0.0.1:8000** no browser.
 
-> O `npm start` copia automaticamente os bundles UMD do Cytoscape e do Marked para `public/vendor/` — o browser não precisa de `node_modules`.
+> O `npm start` copia automaticamente os bundles UMD do D3 e do Marked para `public/vendor/` — o browser não precisa de `node_modules`.
 
 ### Configuração (variáveis de ambiente)
 
@@ -82,8 +82,8 @@ obsidian/
 ├── public/
 │   ├── index.html          # UI: toolbar, área do grafo, painel da nota
 │   ├── style.css           # tema escuro + estilos markdown
-│   ├── app.js              # Cytoscape, fetch da API, preview de notas
-│   └── vendor/             # cytoscape.min.js, marked.min.js (gerados)
+│   ├── app.js              # D3 force graph, fetch da API, preview de notas
+│   └── vendor/             # d3.min.js, marked.min.js (gerados)
 └── vault/                  # ← o teu vault Markdown (exemplo incluído)
     ├── index.md
     ├── autenticacao.md

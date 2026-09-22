@@ -48,7 +48,42 @@ html, body {
 #layout { display: flex; height: calc(100% - 53px); }
 
 #graph-wrap { position: relative; flex: 1; min-width: 0; }
-#cy { position: absolute; inset: 0; }
+
+/* d3 graph */
+#graph { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; }
+#graph:active { cursor: grabbing; }
+#graph .links line { stroke: #55557a; stroke-width: 1.4px; transition: opacity .12s, stroke .12s; }
+#graph .links text {
+  font-size: 9.5px; fill: var(--muted); pointer-events: none;
+  paint-order: stroke; stroke: rgba(30, 30, 46, .85); stroke-width: 3px;
+}
+#graph .links .lit line { stroke: var(--accent); stroke-width: 2px; }
+#graph .links .lit text { fill: #cfe0ff; }
+#graph .links .dimmed { opacity: .12; }
+#graph .links.missing line { stroke-dasharray: 5 4; }
+
+#graph .nodes { cursor: pointer; }
+#graph .nodes circle, #graph .nodes rect { stroke: rgba(0, 0, 0, .55); stroke-width: 1.2px; transition: opacity .12s; }
+#graph .nodes text {
+  font-size: 11px; fill: #cfcfe8; text-anchor: middle; pointer-events: none;
+  paint-order: stroke; stroke: rgba(30, 30, 46, .9); stroke-width: 3px;
+}
+#graph .nodes.dimmed { opacity: .15; }
+#graph .nodes.selected circle, #graph .nodes.selected rect { stroke: var(--accent); stroke-width: 2.5px; }
+#graph .nodes.in-impact circle { fill: #b4d98a; }
+
+/* tooltip */
+#tooltip {
+  position: absolute; z-index: 10; pointer-events: none;
+  max-width: 260px; padding: 8px 11px; border-radius: 8px;
+  background: rgba(36, 36, 58, .96); border: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .45);
+  font-size: 12px; line-height: 1.45;
+  opacity: 0; transition: opacity .1s;
+}
+#tooltip.show { opacity: 1; }
+#tooltip .tt-name { font-weight: 700; margin-bottom: 2px; word-break: break-word; }
+#tooltip .tt-row { color: var(--muted); }
 
 #legend {
   position: absolute; left: 12px; bottom: 10px;
@@ -89,6 +124,3 @@ html, body {
 .markdown table { border-collapse: collapse; }
 .markdown th, .markdown td { border: 1px solid var(--border); padding: 4px 10px; }
 
-/* cytoscape labels */
-#cy .node-label { font-size: 11px; color: #cfcfe8; text-shadow: 0 0 3px #000, 0 0 3px #000; }
-#cy .edge-label { font-size: 9.5px; color: var(--muted); }
