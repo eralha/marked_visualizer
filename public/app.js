@@ -281,6 +281,11 @@ function selectNode(d) {
   else openNote(d.id);
 }
 
+function selectById(id) {
+  const n = nodes.find((nd) => nd.id === id);
+  if (n) selectNode(n);
+}
+
 function clearSelection() {
   if (selectedId === null) return;
   selectedId = null;
@@ -388,8 +393,8 @@ async function openNote(relPath) {
       if (!match) a.classList.add('missing');
       a.addEventListener('click', () => {
         if (match) {
+          selectById(match); // same path as clicking the node: highlight + note
           focusNode(match);
-          openNote(match);
         } else {
           showMissingNote(t.split('#')[0].split('|')[0]);
         }
